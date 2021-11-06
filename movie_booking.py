@@ -2,9 +2,9 @@ from utils.dbconnection import getConnection
 from utils.user import getUser
 from classes.user import User
 from utils.adminServices import adminOptions,getMovieDetails,getRemoveMoviesDetails
-from utils.userServices import userOptions
+from utils.userServices import userOptions,listMovieDetails,bookingDetails,displayBookingDetails,cancelTicket
 
-email = input("Email :")
+email = input("\nEmail :")
 user = getUser(email)
 
 #Todo : add username
@@ -30,6 +30,24 @@ if(user.role=="admin"):
         elif(option==2):
             getRemoveMoviesDetails()
         elif(option==3):
+            break
+        else:
+            print("Invalid Option")
+elif(user.role=="user"):
+    while(1):
+        userOptions()
+        option=int(input("Enter Option :"))
+        if(option==1):
+            listMovieDetails()
+        elif(option==2):
+            ()
+        elif(option==3):
+            bookingDetails(email)
+        elif(option==4):
+            displayBookingDetails(email)
+        elif(option==5):
+            cancelTicket(email)
+        elif(option==6):
             break
         else:
             print("Invalid Option")

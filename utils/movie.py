@@ -1,9 +1,13 @@
+from classes.movies import Movies
 from utils.dbconnection import getConnection
 
 def addMovieDetailsToDB(movie):
     connection = getConnection()
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO movies (movie_name,movie_startdate) VALUES (%s, %s)",(movie.movie_name,movie.movie_start_date))
+    cursor.execute("select * from movies where movie_name='%s'"%movie.movie_name)
+    movieobj = cursor.fetchone()
+    if(movieobj[0]==""):
+        cursor.execute("INSERT INTO movies (movie_name,movie_startdate) VALUES (%s, %s)",(movie.movie_name,movie.movie_start_date))
     cursor.execute("INSERT INTO theatre (theatre_name,ticket_price,movie_name) VALUES (%s, %s, %s)",(movie.theatre_name,movie.ticket_price,movie.movie_name))
     cursor.execute("select * from theatre where theatre_name='%s'"%movie.theatre_name)
     theatreobj = cursor.fetchone()
@@ -24,3 +28,13 @@ def deleteMovieDetailsFromDB(movie_name):
     connection.commit()
     cursor.close()
     connection.close()
+
+def listMovies():
+    connection = getConnection()
+    cursor = connection.cursor()
+    cursor.execute("select * from movies")
+    listOfMovies=cursor.fetchall()
+    print("\n\nBooking Start Date    |    Movie Name")
+    for i in listOfMovies:
+        print("-------------------------------------\n")
+        print(i[1],"                   ",i[0],"\n")

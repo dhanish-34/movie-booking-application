@@ -1,7 +1,8 @@
 from utils.movie import listMovies
-from utils.theatre import getListTheatre,getTheatreName
+from utils.theatre import getListTheatre,getTheatreName,filterByDate,filterByTheatre,filterByShowtime
 from utils.showtimes import getListOfShowtimes,isTicketAvailable
 from utils.bookings import createTicket,getAllBookingDetails,cancelTicketById
+from utils.filter import display,displayShowtime
 
 def userOptions():
     print("\n\n1.List Movies\n2.Filter by Date/Showtime/Theatre\n3.Book Tickets\n4.Display Booking Details\n5.Cancel Ticket\n6.Exit\n")
@@ -39,7 +40,7 @@ def bookingDetails(email):
 def displayBookingDetails(email):
     listofbooking=getAllBookingDetails(email)
     for i in listofbooking:
-        print(i[0],"   ",getTheatreName(i[2]),"        ",i[3],"         ",i[4],"        ",i[5],"        ",i[6])
+        print(i[0],"     ",getTheatreName(i[2]),"        ",i[3],"         ",i[4],"        ",i[5],"        ",i[6])
 
 def cancelTicket(email):
     listofbooking=getAllBookingDetails(email)
@@ -47,3 +48,23 @@ def cancelTicket(email):
         print(i[0],"   ",getTheatreName(i[2]),"        ",i[3],"         ",i[4],"        ",i[5],"        ",i[6])
     booking_id=int(input("Enter Booking ID for cancellation : "))
     cancelTicketById(booking_id,listofbooking)
+
+def filterMovies():
+    while(1):
+        filterChoice=int(input("\n1.Filter on Date\n2.Filter on Theatre\n3.Filter on Showtime\n4.Exit\n\nEnter you choice : "))
+        if(filterChoice==1):
+            inputDate=input("Enter the date in YYYY-MM-DD format : ")
+            listofmovies=filterByDate(inputDate)
+            display(listofmovies)
+        elif(filterChoice==2):
+            inputTheatre=input("Enter theatre name : ")
+            listofmovies=filterByTheatre(inputTheatre)
+            display(listofmovies)
+        elif(filterChoice==3):
+            inputShotime=input("Enter Showtime : ")
+            listofmovies=filterByShowtime(inputShotime)
+            displayShowtime(listofmovies)
+        elif(filterChoice==4):
+            break
+        else:
+            print("Invalid choice")

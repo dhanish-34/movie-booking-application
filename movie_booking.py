@@ -2,7 +2,7 @@ from utils.dbconnection import getConnection
 from utils.user import getUser
 from classes.user import User
 from utils.adminServices import adminOptions,getMovieDetails,getRemoveMoviesDetails
-from utils.userServices import userOptions,listMovieDetails,bookingDetails,displayBookingDetails,cancelTicket
+from utils.userServices import userOptions,listMovieDetails,bookingDetails,displayBookingDetails,cancelTicket,filterMovies
 
 email = input("\nEmail :")
 user = getUser(email)
@@ -40,7 +40,7 @@ elif(user.role=="user"):
         if(option==1):
             listMovieDetails()
         elif(option==2):
-            ()
+            filterMovies()
         elif(option==3):
             bookingDetails(email)
         elif(option==4):

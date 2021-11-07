@@ -3,7 +3,8 @@ from utils.dbconnection import getConnection
 def createTicket(movie_name,theatre_id,show_time_input,email,number_of_seats,amount_paid,current_available_tickets):
     connection = getConnection()
     cursor = connection.cursor()
-    print(movie_name,theatre_id,show_time_input,email,number_of_seats,amount_paid)
+    print("MOVIE NAME        THEATRE ID        TIME            EMAIL       SEATS    PAID")
+    print(movie_name,"               ",theatre_id,"          ",show_time_input,"        ",email,"       ",number_of_seats,"       ",amount_paid)
     cursor.execute("INSERT INTO bookings (email,theatre_id,movie_name,no_of_seats,show_time,amount_paid) VALUES (%s, %s, %s, %s, %s, %s)",(email,theatre_id,movie_name,number_of_seats,show_time_input,amount_paid))
     cursor.execute("UPDATE show_timing SET available_seats = %s WHERE theatre_id =%s and show_time=%s and movie_name=%s",(current_available_tickets-number_of_seats,theatre_id,show_time_input,movie_name))
     connection.commit()

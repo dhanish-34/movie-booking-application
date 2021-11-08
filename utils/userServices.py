@@ -2,7 +2,7 @@ from utils.movie import listMovies
 from utils.theatre import getListTheatre,getTheatreName,filterByDate,filterByTheatre,filterByShowtime
 from utils.showtimes import getListOfShowtimes,isTicketAvailable
 from utils.bookings import createTicket,getAllBookingDetails,cancelTicketById
-from utils.filter import display,displayShowtime
+from utils.filter import displaybyDate,displayShowtime,displayByTheatre
 
 def userOptions():
     print("\n\n1.List Movies\n2.Filter by Date/Showtime/Theatre\n3.Book Tickets\n4.Display Booking Details\n5.Cancel Ticket\n6.Exit\n")
@@ -17,13 +17,13 @@ def bookingDetails(email):
     print("\n",movie_name," SCREENING ON\n")
     print("\n\nTheatre ID    |    Theatre Name          |     TICKET PRICE")
     for i in listOfTheatres:
-        print("-------------------------------------\n")
-        print(i[0],"                   ",i[1],"                ",i[2],"\n")
+        print("------------------------------------------------------------------------\n")
+        print(i[0],"                   ",i[1],"                   ",i[2],"\n")
     theatre_id=int(input("Enter Theatre ID :"))
     showtimes,ticket_price=getListOfShowtimes(theatre_id)
     print("\n\nSHOWTIME    |    AVAILABLE SEATS    ")
     for i in showtimes:
-        print("------------------------------------------------------------------\n")
+        print("-----------------------------------------\n")
         print(i[0],"                  ",i[1],"\n")
     show_time_input=input("\nEnter Showtime : ")
     number_of_seats=int(input("\nEnter number of seats : "))
@@ -55,11 +55,11 @@ def filterMovies():
         if(filterChoice==1):
             inputDate=input("Enter the date in YYYY-MM-DD format : ")
             listofmovies=filterByDate(inputDate)
-            display(listofmovies)
+            displaybyDate(listofmovies)
         elif(filterChoice==2):
             inputTheatre=input("Enter theatre name : ")
             listofmovies=filterByTheatre(inputTheatre)
-            display(listofmovies)
+            displayByTheatre(listofmovies)
         elif(filterChoice==3):
             inputShotime=input("Enter Showtime : ")
             listofmovies=filterByShowtime(inputShotime)
